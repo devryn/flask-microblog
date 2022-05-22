@@ -15,9 +15,7 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField(
-        'Retype Password', validators=[DataRequired(), EqualTo('password')]
-    )
+    password2 = PasswordField('Retype Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
     #custom validators
@@ -27,6 +25,6 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Username is taken. Choose something more original.')
 
     def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first
+        user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Oopsie there is already an account with this email address!')
